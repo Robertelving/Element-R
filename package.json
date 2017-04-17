@@ -1,0 +1,9 @@
+{
+  "name": "Element-R",
+  "version": "1.0.0",
+  "description": "user element",
+  "main": "index.js",
+  "repository": "https://github.com/groenborg/Element-R",
+  "author": "groenborg",
+  "license": "MIT"
+}
