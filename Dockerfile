@@ -1,0 +1,10 @@
+FROM node:7-slim
+
+MAINTAINER groenborg
+
+COPY .
+
+ENV PORT 8080
+ENV HOST 0.0.0.0
+
+ENTRYPOINT node run
