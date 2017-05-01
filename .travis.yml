@@ -1,0 +1,54 @@
+os:
+- linux
+
+language:
+- node_js
+
+node_js:
+- '6.5'
+
+branches:
+  only:
+  - master
+  - /^ready\/.*$/
+
+sudo: required
+
+before_script:
+
+- echo Install Dependencies
+- npm install
+
+script:
+
+- npm test
+
+after_success:
+- |-
+  if [ "$TRAVIS_BRANCH" != "master" ];
+  then git clone "https://github.com/"$TRAVIS_REPO_SLUG".git" temp_repo;
+  cd temp_repo;
+
+  echo Mergin;
+  git merge --ff-only origin/"$TRAVIS_BRANCH";
+
+  echo Pushing;
+  git push https://$GH_TOKEN@github.com/$TRAVIS_REPO_SLUG master ;
+  git push https://$GH_TOKEN@github.com/"$TRAVIS_REPO_SLUG" --delete "$BRANCH";
+
+  else echo Was directly on master; fi
+
+after_script:
+
+
+cache:
+  directories:
+  - node_modules
+
+notifications:
+  email:
+    on_success: never
+    on_failure: change
+
+env:
+  global:
